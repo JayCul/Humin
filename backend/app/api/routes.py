@@ -225,7 +225,7 @@ def system_status():
         "cockroachdb": {
             "mode": "live" if not s.use_mock_db else "mock",
             "url_configured": bool(s.cockroachdb_url),
-            "mcp_configured": bool(s.cockroachdb_mcp_url),
+            "mcp_configured": mcp_client.is_configured(),
             "mcp_tools": [t["name"] for t in mcp_tools],
         },
         "bedrock": {

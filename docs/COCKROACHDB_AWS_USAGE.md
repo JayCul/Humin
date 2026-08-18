@@ -21,9 +21,9 @@ Required by the hackathon submission: at least **2 CockroachDB tools** and
 - **Where:** [`backend/app/db/mcp_client.py`](../backend/app/db/mcp_client.py) - a real MCP client (via the official `mcp` Python SDK, streamable-HTTP
   transport), not a config placeholder. `CockroachRepository.search_similar_content()`
   in [`repository.py`](../backend/app/db/repository.py) tries the MCP path
-  first whenever `COCKROACHDB_MCP_URL` is set, and falls back to the direct
-  driver on any failure - a genuine second read path for the Remember phase,
-  never a single point of failure for the agent loop.
+  first whenever it's configured, and falls back to the direct driver on any
+  failure - a genuine second read path for the Remember phase, never a
+  single point of failure for the agent loop.
 - **Why:** the agent's memory reads become tool calls the same way its
   Bedrock calls are, rather than a bespoke driver-only integration.
 - **Adaptive by design:** the client discovers whatever tools the managed
@@ -33,9 +33,12 @@ Required by the hackathon submission: at least **2 CockroachDB tools** and
   an assumed tool name/shape we hadn't verified against a live endpoint.
 - **Status:** implemented and exercised against a live CockroachDB Cloud
   cluster for the direct-driver path (see `docs/DEPLOYMENT.md`); the MCP
-  path itself activates the moment `COCKROACHDB_MCP_URL` /
-  `COCKROACHDB_MCP_API_KEY` are set - the Settings page shows exactly which
-  tools it discovered once connected.
+  path itself activates the moment `COCKROACHDB_CLUSTER_ID` /
+  `COCKROACHDB_MCP_API_KEY` are set (a service-account API key from the
+  CockroachDB Cloud console - not the interactive OAuth flow `claude mcp add`
+  uses, which authenticates a personal CLI session rather than an unattended
+  backend) - the Settings page shows exactly which tools it discovered once
+  connected.
 
 ### (Not used, in scope for future work)
 - ccloud CLI - cluster provisioning/ops, not part of the runtime agent loop.

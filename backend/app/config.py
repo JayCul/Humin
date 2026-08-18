@@ -24,12 +24,19 @@ class Settings(BaseSettings):
     # Standard CockroachDB Cloud connection string, e.g.:
     # postgresql://<user>:<password>@<host>:26257/<database>?sslmode=verify-full
     cockroachdb_url: str = ""
-    # Optional: CockroachDB Cloud Managed MCP Server endpoint. When set, the
-    # agent orchestrator prefers routing cluster reads/writes through MCP
-    # tool calls instead of the direct driver, per the hackathon's "Cloud
-    # Managed MCP Server" integration.
-    cockroachdb_mcp_url: str = ""
+    # CockroachDB Cloud Managed MCP Server. The endpoint is a single shared
+    # URL across all customers/clusters - which cluster you mean is carried
+    # in the `mcp-cluster-id` header, not the URL itself, so it has a real
+    # default here. What actually gates whether MCP is "configured" (see
+    # mcp_client.is_configured()) is the cluster ID + a service-account API
+    # key, both per-deployment and required together.
+    cockroachdb_mcp_url: str = "https://cockroachlabs.cloud/mcp"
+    cockroachdb_cluster_id: str = ""
     cockroachdb_mcp_api_key: str = ""
+    # The MCP server's query tool takes a database name as a required
+    # argument alongside the query text - matches the database in
+    # cockroachdb_url.
+    cockroachdb_database: str = "defaultdb"
 
     # --- AWS / Bedrock ---
     aws_region: str = "us-east-1"

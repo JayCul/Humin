@@ -181,7 +181,9 @@ Open the Settings page in the deployed frontend - it should show
 
 - ✅ Agentic app using CockroachDB as memory, deployed on AWS - steps 1-5
 - ✅ ≥2 CockroachDB tools - Distributed Vector Indexing (schema) + Cloud
-  Managed MCP Server (enable it in the CockroachDB Cloud console, then set
-  `COCKROACHDB_MCP_URL`/`COCKROACHDB_MCP_API_KEY` in the Lambda env vars)
+  Managed MCP Server (generate a service-account API key for your cluster in
+  the CockroachDB Cloud console, then set `COCKROACHDB_CLUSTER_ID`/
+  `COCKROACHDB_MCP_API_KEY` in the Lambda env vars - the OAuth flow
+  `claude mcp add` uses authenticates a personal CLI session, not this)
 - ✅ ≥1 AWS service - Bedrock + Lambda + EventBridge, all live after this guide
 - ✅ Published functional demo app - the Vercel/Amplify frontend URL + humin-api Function URL

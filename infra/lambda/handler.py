@@ -35,6 +35,8 @@ from app.agent.orchestrator import run_cycle
 
 logger = logging.getLogger("humin.lambda")
 logging.basicConfig(level=logging.INFO)
+# See app/main.py for why this second call is also needed on Lambda.
+logging.getLogger().setLevel(logging.INFO)
 
 
 def run_all_active_campaigns(event: dict[str, Any], context: Any) -> dict[str, Any]:

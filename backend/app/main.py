@@ -9,6 +9,11 @@ from app.api.routes import router
 from app.config import get_settings
 
 logging.basicConfig(level=logging.INFO)
+# On Lambda, the runtime attaches its own handler to the root logger before
+# our code ever runs - basicConfig() is a no-op once a handler already
+# exists, so it silently doesn't raise the level there even though it works
+# fine locally. Setting the level directly always takes effect.
+logging.getLogger().setLevel(logging.INFO)
 
 settings = get_settings()
 
