@@ -1,0 +1,11 @@
+[build]
+  command = "npm run build"
+
+[build.environment]
+  # Public by design (NEXT_PUBLIC_ vars are inlined into the client bundle
+  # regardless of where they're set), so committing this is fine — it's the
+  # same live Lambda Function URL the app already talks to.
+  NEXT_PUBLIC_API_BASE = "https://smsbr6inwfumdwr6wzy7eq7sgq0nweqq.lambda-url.us-east-1.on.aws/api"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

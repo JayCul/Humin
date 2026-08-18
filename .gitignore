@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Lambda deploy artifacts
+backend/build_lambda/
+backend/humin-lambda.zip
+
+# Env
+.env
+.env.local
+*.pem
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+frontend/.env*.local
+npm-debug.log*
+*.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Logs
+*.log
