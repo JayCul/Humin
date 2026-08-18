@@ -1,5 +1,10 @@
 [build]
   command = "npm run build"
+  # Must differ from the base directory or @netlify/plugin-nextjs refuses to
+  # run ("publish directory cannot be the same as the base directory").
+  # The plugin doesn't actually serve straight from here (it manages its own
+  # output), but Netlify still requires the two paths to be distinct.
+  publish = ".next"
 
 [build.environment]
   # Public by design (NEXT_PUBLIC_ vars are inlined into the client bundle
